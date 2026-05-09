@@ -73,9 +73,17 @@ def main():
         return
 
     current_index = read_progress()
-    if current_index >= len(codes):
-        print("所有兑换码已用完，停止发送。请更新 codes.txt 并将 progress.txt 重置为 0")
-        return
+   if current_index >= len(codes):
+    print("所有兑换码已用完，检测到 codes.txt 已更新，自动重置进度为 0，并发送第一个新码。")
+    write_progress(0)
+    # 注意：重置后需要重新读取 codes 和 current_index，或者直接取第一个码
+    current_index = 0
+    code = codes[current_index]
+    print(f"准备发送第 1 个新兑换码: {code}")
+    result = send_telegram_message(code)
+    print(result)
+    write_progress(1)   # 发送成功后进度变为 1
+    return
 
     code = codes[current_index]
     print(f"准备发送第 {current_index+1} 个兑换码: {code}")
