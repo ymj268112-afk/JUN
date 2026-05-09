@@ -27,7 +27,7 @@ def send_telegram_message(code):
     MESSAGE = f"""
 🎉 Dear members, hello
 
-🔑 Today's game VIP redemption code:{code}
+🔑 Today's game VIP redemption code: {code}
 
 Validity period: Today only
 
@@ -73,18 +73,20 @@ def main():
         return
 
     current_index = read_progress()
-   if current_index >= len(codes):
-    print("所有兑换码已用完，检测到 codes.txt 已更新，自动重置进度为 0，并发送第一个新码。")
-    write_progress(0)
-    # 注意：重置后需要重新读取 codes 和 current_index，或者直接取第一个码
-    current_index = 0
-    code = codes[current_index]
-    print(f"准备发送第 1 个新兑换码: {code}")
-    result = send_telegram_message(code)
-    print(result)
-    write_progress(1)   # 发送成功后进度变为 1
-    return
 
+    # 自动重置逻辑：如果进度已经用完所有码
+    if current_index >= len(codes):
+        print("所有兑换码已用完，检测到 codes.txt 可能已更新，自动重置进度为 0，并发送第一个新码。")
+        write_progress(0)
+        current_index = 0
+        code = codes[current_index]
+        print(f"准备发送第 1 个新兑换码: {code}")
+        result = send_telegram_message(code)
+        print(result)
+        write_progress(1)   # 发送成功后进度变为 1
+        return
+
+    # 正常发送当前进度对应的码
     code = codes[current_index]
     print(f"准备发送第 {current_index+1} 个兑换码: {code}")
     result = send_telegram_message(code)
