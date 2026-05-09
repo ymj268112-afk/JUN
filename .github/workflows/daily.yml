@@ -24,6 +24,9 @@ jobs:
 
       - name: Send Telegram message
         run: python send.py
+        env:                          # ⚠️ 关键：将 Secrets 传递给脚本
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
       - name: Commit and push progress update
         run: |
