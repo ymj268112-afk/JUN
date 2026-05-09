@@ -5,6 +5,10 @@ on:
     - cron: '1 16 * * *'   # 每天 UTC 16:01 (北京时间 0:01)
   workflow_dispatch:
 
+# 关键：授予 GITHUB_TOKEN 写入仓库的权限
+permissions:
+  contents: write
+
 jobs:
   send:
     runs-on: ubuntu-latest
@@ -12,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          persist-credentials: true   # 允许后续推送
+          persist-credentials: true
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -24,7 +28,7 @@ jobs:
 
       - name: Send Telegram message
         run: python send.py
-        env:                          # ⚠️ 关键：将 Secrets 传递给脚本
+        env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
