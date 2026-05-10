@@ -2,7 +2,8 @@ name: Daily Telegram Message
 
 on:
   schedule:
-    - cron: '1 16 * * *'   # 每天 UTC 16:01 (北京时间 0:01)
+    - cron: '1 0 * * *'  # 修改为 00:01
+      timezone: 'Asia/Shanghai'  # 明确指定时区
   workflow_dispatch:
 
 # 关键：授予 GITHUB_TOKEN 写入仓库的权限
