@@ -48,7 +48,7 @@ Share this message and let your friends play with you!
     buttons = {
         "inline_keyboard": [
             [
-                {"text": " play now", "url": "https://7wild.vip/install.html"},
+                {"text": " Play now", "url": "https://7wild.vip/install.html"},
                 {"text": " Facebook ", "url": "https://www.facebook.com/profile.php?id=100094199282595"}
             ]
         ]
