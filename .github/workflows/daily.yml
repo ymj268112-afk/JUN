@@ -1,8 +1,6 @@
 name: Daily Telegram Message
 
 on:
-  # schedule:
-  #   - cron: '1 16 * * *'   # 已取消定时
   workflow_dispatch:
 
 permissions:
